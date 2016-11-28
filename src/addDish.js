@@ -7,15 +7,18 @@ var Name = t.refinement(t.String, function (str) { return str.length >= 3 &&  st
 Name.getValidationErrorMessage = function (value, path, context) {
     return 'неверный формат логина';
 };
-var Description = t.refinement(t.String, function (str) {});
-var Price = t.refinement(t.Number, function (str) {});
 
+
+const Car = t.enums.of('Audi Chrysler Ford Renault Peugeot');
 
 var Person = t.struct({
     name: Name,
-    description: Description,
-    price: Price
+    description: t.String,
+    price: t.Number
 });
+//const Select = t.struct({
+//    car: t.list(Car)
+//});
 
 var options = {
 
@@ -76,7 +79,7 @@ const AddKitchen = React.createClass({
         var value = this.refs.form.getValue();
 
         if (value) {
-            fetch('https://hardteddy.ru/api/user/login', {
+            fetch('http://207.154.200.43/oleg/dish/create', {
                 method: 'POST',
 
                 headers: {
@@ -90,7 +93,7 @@ const AddKitchen = React.createClass({
                 })
             }).then((response) => response.json())
                 .then((responseJson) => {
-                    if(responseJson.status === 0){
+                    if(responseJson.status === 1){
                         // Все хорошо
                         console.log('логин ок')
                     }

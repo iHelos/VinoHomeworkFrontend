@@ -9,13 +9,13 @@ var Name = t.refinement(t.String, function (str) { return str.length >= 3 &&  st
 Name.getValidationErrorMessage = function (value, path, context) {
     return 'неверный формат логина';
 };
-var Description = t.refinement(t.String, function (str) {});
+
 
 
 
 var Person = t.struct({
     name: Name,
-    description: Description
+    description: t.String
 });
 
 var options = {
@@ -72,7 +72,7 @@ const AddIngredient = React.createClass({
         var value = this.refs.form.getValue();
 
         if (value) {
-            fetch('https://hardteddy.ru/api/user/login', {
+            fetch('http://207.154.200.43/oleg/ingredient/create', {
                 method: 'POST',
 
                 headers: {
@@ -85,7 +85,7 @@ const AddIngredient = React.createClass({
                 })
             }).then((response) => response.json())
                 .then((responseJson) => {
-                    if(responseJson.status === 0){
+                    if(responseJson.status === 1){
                         // Все хорошо
                         console.log('логин ок')
                     }
