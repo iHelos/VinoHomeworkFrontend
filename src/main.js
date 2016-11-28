@@ -6,12 +6,14 @@ import items   from './sampledata'
 const MainComponent = React.createClass({
     getInitialState() {
         return {
+            canOrder: true,
             isFetching : true,
-            data : {}
+            data : {},
+            orderID:0
         }
     },
     componentWillMount(){
-        fetch("//127.0.0.1:3001/dish")
+        fetch("//207.154.200.43/ann/dish")
             .then(response => response.json())
             .then(json => {
                 let sourcedata = json.result;
@@ -23,7 +25,7 @@ const MainComponent = React.createClass({
                 }
                 this.setState({data : data});
             });
-        fetch("//127.0.0.1:3001/ingredient")
+        fetch("//207.154.200.43/ann/ingredient")
             .then(response => response.json())
             .then(json => {
                 let sourcedata = json.result;
@@ -35,7 +37,7 @@ const MainComponent = React.createClass({
                 }
                 this.setState({ingredient : data});
             });
-        fetch("//127.0.0.1:3001/kitchen")
+        fetch("//207.154.200.43/ann/kitchen")
             .then(response => response.json())
             .then(json => {
                 let sourcedata = json.result;
@@ -54,7 +56,7 @@ const MainComponent = React.createClass({
     },
     handleIngredientClick(row) {
         console.log(row);
-        fetch("//127.0.0.1:3001/dish/ingredient/"+row.props.data.id)
+        fetch("//207.154.200.43/ann/dish/ingredient/"+row.props.data.id)
             .then(response => response.json())
             .then(json => {
                 let sourcedata = json.result;
@@ -68,7 +70,7 @@ const MainComponent = React.createClass({
             });
     },
     handleKitchenClick(row) {
-        fetch("//127.0.0.1:3001/dish/kitchen/"+row.props.data.id)
+        fetch("//207.154.200.43/ann/dish/kitchen/"+row.props.data.id)
             .then(response => response.json())
             .then(json => {
                 let sourcedata = json.result;
@@ -100,7 +102,7 @@ const MainComponent = React.createClass({
     },
     handleSubmit() {
         //"//127.0.0.1:3001/order/"
-        fetch("//127.0.0.1:3001/order/",
+        fetch("//207.154.200.43/ann/order/",
             {
                 method: 'POST',
                 headers: {
@@ -111,7 +113,15 @@ const MainComponent = React.createClass({
                     order: this.refs.cart.getSelection()
                 })
             }
-            ).then(result => result.json()).then(result => console.log(result)).catch(error => console.log(error));
+            ).then(result => result.json()).then(result => {
+                console.log(result);
+                this.setState(
+                    {
+                        canOrder : false,
+                        orderID:result.result
+                    }
+                    )
+            }).catch(error => console.log(error));
 
         console.log(this.refs.cart.getSelection())
     },
@@ -120,7 +130,7 @@ const MainComponent = React.createClass({
     },
     handleReset() {
         //this.refs.cart.reset()
-        fetch("//127.0.0.1:3001/dish")
+        fetch("//207.154.200.43/ann/dish")
             .then(response => response.json())
             .then(json => {
                 let sourcedata = json.result;
@@ -178,6 +188,7 @@ const MainComponent = React.createClass({
                     onRowClick        = {this.handleRowClick}
                     results           = {this.state.data} />
                 <hr />
+                {this.state.canOrder ?
                 <Cart
                     ref               = 'cart'
                     onItemAdded       = {this.notifyItemAdded}
@@ -187,6 +198,7 @@ const MainComponent = React.createClass({
                     columns           = {['name', 'description', 'price']}
                     iterator          = {this.rowIterator}
                     cartEmptyMessage  = {'No items.'} />
+                    : <a>Ваш заказ принят! Номер заказа: {this.state.orderID}</a> }
                 <hr />
                 {this.state.buttonsVisible ? (
                     <div>
