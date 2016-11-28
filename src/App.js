@@ -2,6 +2,8 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, Link, browserHistory  } from 'react-router'
 import MainComponent from './main'
+import Admin from './admin'
+import AddKitchen from './addKitchen'
 const App = React.createClass({
     render() {
         return (
@@ -15,19 +17,18 @@ const App = React.createClass({
             </div>
         )
     }
-})
+});
 
-const About = React.createClass({
-    render() {
-        return <h3>About</h3>
-    }
-})
+
+
 
 class Greeting extends React.Component {
     render() {
-        return  <Router history={browserHistory}>
+        return <Router history={browserHistory}>
             <Route path="/" component={App}>
-                <Route path="admin" component={About} />
+                <Route path="admin" component={Admin}>
+                    <Route path="/add_kitchen" component={AddKitchen}/>
+                </Route>
                 <Route path="user" component={MainComponent}/>
             </Route>
         </Router>
