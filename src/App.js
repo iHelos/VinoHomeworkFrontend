@@ -12,7 +12,7 @@ const App = React.createClass({
             <div>
                 <h1>Выберите тип пользователя:</h1>
                 <ul>
-                    <li><Link to="/admin">Администроатр</Link></li>
+                    <li><Link to="/admin">Администратор</Link></li>
                     <li><Link to="/user">Пользователь</Link></li>
                 </ul>
                 {this.props.children}
