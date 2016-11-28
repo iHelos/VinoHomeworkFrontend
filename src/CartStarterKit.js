@@ -19754,7 +19754,7 @@ var supportedInputTypes = {
   'email': true,
   'month': true,
   'number': true,
-  'password': true,
+  "discription": true,
   'range': true,
   'search': true,
   'tel': true,

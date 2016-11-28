@@ -33,14 +33,14 @@ var options = {
 };
 const divStyle = {
     padding:20,
-    backgroundColor: 'pink'
+    backgroundColor: 'yellow'
 };
-const AddKitchen = React.createClass({
+const AddIngredient = React.createClass({
     getInitialState() {
         return {
             value: {
-                name: 'Русская',
-                description: 'Традиционная кухня европейской части России'
+                name: 'Ботат',
+                description: 'Сладкий картофель'
             }
         };
     },
@@ -50,7 +50,7 @@ const AddKitchen = React.createClass({
     render() {
         return (
             <div style={divStyle}>
-                <h3>Добавление кухни</h3>
+                <h3>Добавление ингрeдиента</h3>
                     <Form
                         ref="form"
                         type={Person}
@@ -102,5 +102,5 @@ const AddKitchen = React.createClass({
     }
 });
 
-export default AddKitchen
+export default AddIngredient
 

@@ -3,19 +3,18 @@ import t from 'tcomb-form';
 
 const Form = t.form.Form;
 
-
-
 var Name = t.refinement(t.String, function (str) { return str.length >= 3 &&  str.length <= 16});
 Name.getValidationErrorMessage = function (value, path, context) {
     return 'неверный формат логина';
 };
 var Description = t.refinement(t.String, function (str) {});
-
+var Price = t.refinement(t.Number, function (str) {});
 
 
 var Person = t.struct({
     name: Name,
-    description: Description
+    description: Description,
+    price: Price
 });
 
 var options = {
@@ -28,19 +27,24 @@ var options = {
         description: {
             label: 'Описание:',
             placeholder:'Описание'
+        },
+        price: {
+            label: 'Цена в руб.:',
+            placeholder:'Цена'
         }
     }
 };
 const divStyle = {
     padding:20,
-    backgroundColor: 'pink'
+    backgroundColor: 'grey'
 };
 const AddKitchen = React.createClass({
     getInitialState() {
         return {
             value: {
-                name: 'Русская',
-                description: 'Традиционная кухня европейской части России'
+                name: 'Сало',
+                description: 'Свиной жир в специях любимая еда хохлов',
+                price: 200
             }
         };
     },
@@ -50,7 +54,7 @@ const AddKitchen = React.createClass({
     render() {
         return (
             <div style={divStyle}>
-                <h3>Добавление кухни</h3>
+                <h3>Добавление блюда</h3>
                     <Form
                         ref="form"
                         type={Person}
@@ -81,7 +85,8 @@ const AddKitchen = React.createClass({
                 },
                 body: JSON.stringify({
                     name: value.name,
-                    description: value.description
+                    description: value.description,
+                    price: value.price
                 })
             }).then((response) => response.json())
                 .then((responseJson) => {
