@@ -206,4 +206,4 @@ const MainComponent = React.createClass({
     }
 })
 
-export default MainComponent;
+export default MainComponent
