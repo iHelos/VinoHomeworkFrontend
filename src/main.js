@@ -99,13 +99,27 @@ const MainComponent = React.createClass({
         console.log('Old quantity : ' + oldQty)
     },
     handleSubmit() {
+        //"//127.0.0.1:3001/order/"
+        fetch("//127.0.0.1:3001/order/",
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    order: this.refs.cart.getSelection()
+                })
+            }
+            ).then(result => result.json()).then(result => console.log(result)).catch(error => console.log(error));
+
         console.log(this.refs.cart.getSelection())
     },
     handleEmptyCart() {
         this.refs.cart.emptyCart()
     },
     handleReset() {
-        this.refs.cart.reset()
+        //this.refs.cart.reset()
         fetch("//127.0.0.1:3001/dish")
             .then(response => response.json())
             .then(json => {
