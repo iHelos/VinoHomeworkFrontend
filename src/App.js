@@ -6,6 +6,8 @@ import Admin from './admin'
 import AddKitchen from './addKitchen'
 import AddIngredient from './addIngredient'
 import AddDish from './addDish'
+import DeleteDish from './deleteDish'
+import Test from './test'
 const App = React.createClass({
     render() {
         return (
@@ -32,6 +34,8 @@ class Greeting extends React.Component {
                     <Route path="/add_kitchen" component={AddKitchen}/>
                     <Route path="/add_ingredient" component={AddIngredient}/>
                     <Route path="/add_dish" component={AddDish}/>
+                    <Route path="/delete_dish" component={DeleteDish}/>
+                    <Route path="/test" component={Test}/>
                 </Route>
                 <Route path="user" component={MainComponent}/>
             </Route>

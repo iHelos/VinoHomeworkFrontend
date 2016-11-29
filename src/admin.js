@@ -5,10 +5,13 @@ const AdminComponent = React.createClass({
         render() {
             return  <div>
                 <h3>Панель администратора</h3>
+
                 <ul>
                     <li><Link to="/add_kitchen">Добавить кухню</Link></li>
                     <li><Link to="/add_ingredient">Добавить ингредиент</Link></li>
                     <li><Link to="/add_dish">Добавить блюдо</Link></li>
+                    <li><Link to="/delete_dish">Удалить блюдо</Link></li>
+                    <li><Link to="/test">Тест</Link></li>
                 </ul>
                 {this.props.children}
             </div>

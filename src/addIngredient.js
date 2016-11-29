@@ -3,18 +3,8 @@ import t from 'tcomb-form';
 
 const Form = t.form.Form;
 
-
-
-var Name = t.refinement(t.String, function (str) { return str.length >= 3 &&  str.length <= 16});
-Name.getValidationErrorMessage = function (value, path, context) {
-    return 'неверный формат логина';
-};
-
-
-
-
 var Person = t.struct({
-    name: Name,
+    name: t.String,
     description: t.String
 });
 
@@ -59,7 +49,7 @@ const AddIngredient = React.createClass({
                         onChange={this.onChange.bind(this)}
                         />
                     <div>
-                        <button onClick={this.onPress.bind(this)}>
+                        <button onClick={this.onDelete.bind(this)}>
                             Добавить
                         </button>
                     </div>

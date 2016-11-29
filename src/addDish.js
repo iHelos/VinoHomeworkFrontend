@@ -3,10 +3,6 @@ import t from 'tcomb-form';
 import ReactSelect from 'react-select'
 const Form = t.form.Form;
 
-var Name = t.refinement(t.String, function (str) { return str.length >= 3 &&  str.length <= 16});
-Name.getValidationErrorMessage = function (value, path, context) {
-    return 'неверный формат логина';
-};
 
 const divStyle = {
     padding:20,
@@ -77,7 +73,7 @@ const AddDish = React.createClass({
                         let ingredient = t.enums(clearIngredient);
 
                         let Person = t.struct({
-                            name: Name,
+                            name: t.String,
                             description: t.String,
                             price: t.Number,
                             kitchen: t.list(kitchen),
@@ -136,7 +132,7 @@ const AddDish = React.createClass({
                             onChange={this.onChange}
                         />
                         <div className="form-group">
-                            <button onClick = {this.onPress} className="btn btn-primary"> Добавить блюдо</button>
+                            <button onClick = {this.onDelete} className="btn btn-primary"> Добавить блюдо</button>
                         </div>
                     </div>
                     :null
