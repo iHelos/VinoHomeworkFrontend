@@ -34,6 +34,7 @@ const AddDish = React.createClass({
                     let item = sourcedata[key];
                     data.push(item)
                 }
+
                 this.setState({ingredient : data});
             });
         fetch("//207.154.200.43/ann/kitchen")
@@ -52,34 +53,67 @@ const AddDish = React.createClass({
                 inputKitchen.filter(function(value, index, arr) {
                     clearKitchen[value.id]=value.name
                 });
-                let Person = t.struct({
-                    name: Name,
-                    description: t.String,
-                    price: t.Number,
-                    kitchen: t.list(kitchen)
-                });
 
-                let options = {
 
-                    fields: {
-                        name: {
-                            label: 'Название:',
-                            placeholder:'Название'
-                        },
-                        description: {
-                            label: 'Описание:',
-                            placeholder:'Описание'
-                        },
-                        price: {
-                            label: 'Цена в руб.:',
-                            placeholder:'Цена'
-                        },
-                        kitchen: {
-                            label: 'Кухня'
+                fetch("//207.154.200.43/ann/ingredient")
+                    .then(response => response.json())
+                    .then(json => {
+                        let sourcedata = json.result;
+                        console.log(json.result)
+                        let data = [];
+                        for (var key in sourcedata) {
+                            let item = sourcedata[key];
+                            data.push(item)
                         }
-                    }
-                };
-                this.setState({kitchen : data, canShowForm:true, type: Person, options: options});
+
+                        this.setState({ingredient : data});
+
+                        let inputIngredient = data;
+                        let clearIngredient = {};
+
+                        inputIngredient.filter(function(value, index, arr) {
+                            clearIngredient[value.id]=value.name
+                        });
+                        let ingredient = t.enums(clearIngredient);
+
+                        let Person = t.struct({
+                            name: Name,
+                            description: t.String,
+                            price: t.Number,
+                            kitchen: t.list(kitchen),
+                            ingredient: t.list(ingredient)
+                        });
+
+                        let options = {
+
+                            fields: {
+                                name: {
+                                    label: 'Название:',
+                                    placeholder:'Название'
+                                },
+                                description: {
+                                    label: 'Описание:',
+                                    placeholder:'Описание'
+                                },
+                                price: {
+                                    label: 'Цена в руб.:',
+                                    placeholder:'Цена'
+                                },
+                                kitchen: {
+                                    label: 'Кухня'
+                                },
+                                ingredient: {
+                                    label: 'Инградиенты'
+                                }
+                            }
+                        };
+                        this.setState({canShowForm:true, type: Person, options: options});
+
+
+                    });
+
+
+
 
 
             });
@@ -94,19 +128,18 @@ const AddDish = React.createClass({
                 <h3>Добавление блюда</h3>
                 {this.state.canShowForm ?
                     <div>
-                <Form
-                    ref="form"
-                    type={this.state.type}
-                    options={this.state.options}
-                    value={this.state.value}
-                    onChange={this.onChange}
-                />
-                < div >
-                < button onClick = {this.onPress}>
-                    Добавить
-                    </button>
-                    </div></div>
-                    :<b></b>
+                        <Form
+                            ref="form"
+                            type={this.state.type}
+                            options={this.state.options}
+                            value={this.state.value}
+                            onChange={this.onChange}
+                        />
+                        <div className="form-group">
+                            <button onClick = {this.onPress} className="btn btn-primary"> Добавить блюдо</button>
+                        </div>
+                    </div>
+                    :null
                 }
             </div>
 
@@ -130,7 +163,8 @@ const AddDish = React.createClass({
                     name: value.name,
                     description: value.description,
                     price: value.price,
-                    kitchen: value.kitchen
+                    kitchen: value.kitchen,
+                    ingredient: value.ingredient
                 })
             }).then((response) => response.json())
                 .then((responseJson) => {
