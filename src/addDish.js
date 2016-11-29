@@ -58,7 +58,7 @@ const AddDish = React.createClass({
                 name: 'Сало',
                 description: 'Свиной жир в специях любимая еда хохлов',
                 price: 200,
-                typePerson: Person
+                options: options
             }
         };
     },
@@ -88,6 +88,22 @@ const AddDish = React.createClass({
                 inputKitchen = data;
                 console.log(inputKitchen)
                 this.setState({kitchen : data});
+
+
+                //-------------------ИЗМЕНЕНИЯ ТУТ!---------------------
+                var resultoptions = [];
+                for (var id in inputKitchen){
+                    resultoptions.push({value: inputKitchen[id].id, text: inputKitchen[id].name})
+                }
+                options.fields = {
+                    kitchen: {
+                        factory: t.form.Select,
+                        options: resultoptions
+                    }
+                };
+                console.log(resultoptions)
+                this.setState({ options: options });
+
             });
 
     },
@@ -100,8 +116,8 @@ const AddDish = React.createClass({
                 <h3>Добавление блюда</h3>
                     <Form
                         ref="form"
-                        type={this.state.typePerson}
-                        options={options}
+                        type={Person}
+                        options={this.state.options}
                         value={this.state.value}
                         onChange={this.onChange}
                         />
