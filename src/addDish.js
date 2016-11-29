@@ -20,19 +20,6 @@ const AddDish = React.createClass({
     };
     },
     componentWillMount(){
-        fetch("//207.154.200.43/ann/ingredient")
-            .then(response => response.json())
-            .then(json => {
-                let sourcedata = json.result;
-                console.log(json.result)
-                let data = [];
-                for (var key in sourcedata) {
-                    let item = sourcedata[key];
-                    data.push(item)
-                }
-
-                this.setState({ingredient : data});
-            });
         fetch("//207.154.200.43/ann/kitchen")
             .then(response => response.json())
             .then(json => {
@@ -132,7 +119,7 @@ const AddDish = React.createClass({
                             onChange={this.onChange}
                         />
                         <div className="form-group">
-                            <button onClick = {this.onDelete} className="btn btn-primary"> Добавить блюдо</button>
+                            <button onClick = {this.onPress} className="btn btn-primary"> Добавить блюдо</button>
                         </div>
                     </div>
                     :null

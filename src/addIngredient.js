@@ -46,13 +46,11 @@ const AddIngredient = React.createClass({
                         type={Person}
                         options={options}
                         value={this.state.value}
-                        onChange={this.onChange.bind(this)}
+                        onChange={this.onChange}
                         />
-                    <div>
-                        <button onClick={this.onDelete.bind(this)}>
-                            Добавить
-                        </button>
-                    </div>
+                <div className="form-group">
+                    <button onClick = {this.onPress} className="btn btn-primary"> Добавить ингредиент</button>
+                </div>
             </div>
 
 
