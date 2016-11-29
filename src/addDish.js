@@ -9,7 +9,7 @@ Name.getValidationErrorMessage = function (value, path, context) {
 };
 
 
-let inputKitchen = [{"id":5,"name":"asd","description":"нет описания"},
+var inputKitchen = [{"id":5,"name":"asd","description":"нет описания"},
     {"id":6,"name":"123213213","description":"нет описания"}];
 
 var clearKitchen = {};
@@ -59,8 +59,9 @@ const AddDish = React.createClass({
                 description: 'Свиной жир в специях любимая еда хохлов',
                 price: 200,
                 options: options
-            }
-        };
+            },
+            canShowForm:false
+    };
     },
     componentWillMount(){
         fetch("//207.154.200.43/ann/ingredient")
@@ -86,23 +87,33 @@ const AddDish = React.createClass({
                     data.push(item)
                 }
                 inputKitchen = data;
-                console.log(inputKitchen)
-                this.setState({kitchen : data});
+                console.log(inputKitchen);
+                console.log(kitchen);
+                inputKitchen.filter(function(value, index, arr) {
+                    clearKitchen[value.id]=value.name
+                });
+                Person = t.struct({
+                    name: Name,
+                    description: t.String,
+                    price: t.Number,
+                    kitchen: t.list(kitchen)
+                });
+                this.setState({kitchen : data, canShowForm:true});
 
 
                 //-------------------ИЗМЕНЕНИЯ ТУТ!---------------------
-                var resultoptions = [];
-                for (var id in inputKitchen){
-                    resultoptions.push({value: inputKitchen[id].id, text: inputKitchen[id].name})
-                }
-                options.fields = {
-                    kitchen: {
-                        factory: t.form.Select,
-                        options: resultoptions
-                    }
-                };
-                console.log(resultoptions)
-                this.setState({ options: options });
+                // var resultoptions = [];
+                // for (var id in inputKitchen){
+                //     resultoptions.push({value: inputKitchen[id].id, text: inputKitchen[id].name})
+                // }
+                // options.fields = {
+                //     kitchen: {
+                //         factory: t.form.Select,
+                //         options: resultoptions
+                //     }
+                // };
+                // console.log(resultoptions)
+                // this.setState({ options: options });
 
             });
 
@@ -114,18 +125,22 @@ const AddDish = React.createClass({
         return (
             <div style={divStyle}>
                 <h3>Добавление блюда</h3>
-                    <Form
-                        ref="form"
-                        type={Person}
-                        options={this.state.options}
-                        value={this.state.value}
-                        onChange={this.onChange}
-                        />
+                {this.state.canShowForm ?
                     <div>
-                        <button onClick={this.onPress}>
-                            Добавить
-                        </button>
-                    </div>
+                <Form
+                    ref="form"
+                    type={Person}
+                    options={this.state.options}
+                    value={this.state.value}
+                    onChange={this.onChange}
+                />
+                < div >
+                < button onClick = {this.onPress}>
+                    Добавить
+                    </button>
+                    </div></div>
+                    :<b></b>
+                }
             </div>
 
 
