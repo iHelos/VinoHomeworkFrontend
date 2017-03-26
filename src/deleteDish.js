@@ -128,7 +128,7 @@ const AddDish = React.createClass({
         return (
 
             <div style={divStyle}>
-                <h3>Удаление блюда</h3>
+                <h3>Удаление/изменение блюда</h3>
 
                 {this.state.canShowForm ?
 
