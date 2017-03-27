@@ -3,6 +3,10 @@ import Cart  from './CartStarterKit.jsx';
 import Griddle from 'griddle-react'
 import items   from './sampledata'
 
+
+//remote: //127.0.0.1:3001
+//local: //127.0.0.1:3001
+
 const MainComponent = React.createClass({
     getInitialState() {
         return {
@@ -13,7 +17,7 @@ const MainComponent = React.createClass({
         }
     },
     componentWillMount(){
-        fetch("//207.154.200.43/ann/dish")
+        fetch("//127.0.0.1:3001/dish")
             .then(response => response.json())
             .then(json => {
                 let sourcedata = json.result;
@@ -25,7 +29,7 @@ const MainComponent = React.createClass({
                 }
                 this.setState({data : data});
             });
-        fetch("//207.154.200.43/ann/ingredient")
+        fetch("//127.0.0.1:3001/ingredient")
             .then(response => response.json())
             .then(json => {
                 let sourcedata = json.result;
@@ -37,7 +41,7 @@ const MainComponent = React.createClass({
                 }
                 this.setState({ingredient : data});
             });
-        fetch("//207.154.200.43/ann/kitchen")
+        fetch("//127.0.0.1:3001/kitchen")
             .then(response => response.json())
             .then(json => {
                 let sourcedata = json.result;
@@ -56,7 +60,7 @@ const MainComponent = React.createClass({
     },
     handleIngredientClick(row) {
         console.log(row);
-        fetch("//207.154.200.43/ann/dish/ingredient/"+row.props.data.id)
+        fetch("//127.0.0.1:3001/dish/ingredient/"+row.props.data.id)
             .then(response => response.json())
             .then(json => {
                 let sourcedata = json.result;
@@ -70,7 +74,7 @@ const MainComponent = React.createClass({
             });
     },
     handleKitchenClick(row) {
-        fetch("//207.154.200.43/ann/dish/kitchen/"+row.props.data.id)
+        fetch("//127.0.0.1:3001/dish/kitchen/"+row.props.data.id)
             .then(response => response.json())
             .then(json => {
                 let sourcedata = json.result;
@@ -102,7 +106,7 @@ const MainComponent = React.createClass({
     },
     handleSubmit() {
         //"//127.0.0.1:3001/order/"
-        fetch("//207.154.200.43/ann/order/",
+        fetch("//127.0.0.1:3001/order/",
             {
                 method: 'POST',
                 headers: {
@@ -130,7 +134,7 @@ const MainComponent = React.createClass({
     },
     handleReset() {
         //this.refs.cart.reset()
-        fetch("//207.154.200.43/ann/dish")
+        fetch("//127.0.0.1:3001/dish")
             .then(response => response.json())
             .then(json => {
                 let sourcedata = json.result;

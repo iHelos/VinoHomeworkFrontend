@@ -20,7 +20,7 @@ const AddDish = React.createClass({
     };
     },
     componentWillMount(){
-        fetch("//207.154.200.43/ann/kitchen")
+        fetch("//127.0.0.1:3001/kitchen")
             .then(response => response.json())
             .then(json => {
                 let sourcedata = json.result;
@@ -38,7 +38,7 @@ const AddDish = React.createClass({
                 });
 
 
-                fetch("//207.154.200.43/ann/ingredient")
+                fetch("//127.0.0.1:3001/ingredient")
                     .then(response => response.json())
                     .then(json => {
                         let sourcedata = json.result;
@@ -135,7 +135,7 @@ const AddDish = React.createClass({
 
         if (value) {
             console.log(value)
-            fetch('http://207.154.200.43/oleg/dish/create', {
+            fetch('//127.0.0.1:8080/dish/create', {
                 method: 'POST',
 
                 headers: {

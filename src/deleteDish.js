@@ -6,7 +6,7 @@ const divStyle = {
     backgroundColor: 'teal'
 };
 let onDelete = function(id) {
-    fetch("//207.154.200.43/oleg/dish/delete/"+id, {
+    fetch("//127.0.0.1:8080/dish/delete/"+id, {
         method: 'POST',
 
         headers: {
@@ -103,7 +103,7 @@ const AddDish = React.createClass({
     };
     },
     componentWillMount(){
-        fetch("//207.154.200.43/ann/dish")
+        fetch("//127.0.0.1:3001/dish")
             .then(response => response.json())
             .then(json => {
                 let sourcedata = json.result;

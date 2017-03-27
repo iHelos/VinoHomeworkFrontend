@@ -61,7 +61,7 @@ const AddKitchen = React.createClass({
         var value = this.refs.form.getValue();
 
         if (value) {
-            fetch('http://207.154.200.43/oleg/kitchen/create', {
+            fetch('//127.0.0.1:8080/kitchen/create', {
                 method: 'POST',
 
                 headers: {
